@@ -5,7 +5,8 @@
 		var buttonID = ["purple", "green", "red", "blue"];
 		var divID = ["gameTitle", "rule", "randomSum", "status", "text", "total"];
 		var userTotal, gameTotal, wins, losses, value;
-		
+		var bodyID = ["cont", "mainRow1", "mainRow2", "mainRow3", "mainCol1", "mainCol2", "mainCol3", "display", "buttons", "score"]
+	
 	for (var i = 0; i < 4 ; i++) {	
 			if (i <3){		
 			var row = $('<div id=' + i + '>');
@@ -57,20 +58,31 @@
         $('#status').html("Wins " + wins + "<br> Losses " + losses);
         $('#text').html("Your total score is:");
         $('#total').html(userTotal);
+        
+
     }
 
     function resetMM () {
     	value = 0;
     	userTotal = 0;
         gameTotal = generateTotal();
-                
+
         $('#randomSum').html(gameTotal);
         $('#status').html("Wins " + wins + "<br> Losses " + losses);
         $('#total').html(userTotal);
+        
     }
 
     function generateValue(){
    		return (Math.floor(Math.random()*11)+1);
+	}
+	
+	function setValue() {
+		
+		$('#purple').attr('value', generateValue());
+		$('#green').attr('value', generateValue());
+		$('#red').attr('value', generateValue());
+		$('#blue').attr('value', generateValue());
 	}
 
 	function generateTotal(){
@@ -87,16 +99,20 @@
 			wins ++ ;
 			var gameOn = confirm("You Win !!!  Would you like to continue ?" );
 			if(gameOn){
+				setValue();
 				resetMM();
 			}else{
+				setValue();
 				initializeMM();
 			}
 		}else if (totalValue > gameTotal){
 			losses ++;
 			var gameOn = confirm("You Lose !!!  Would you like to continue ?" );
 			if(gameOn) {
+				setValue();
 				resetMM();
 			}else{
+				setValue();
 				initializeMM();
 			}
 		}else{
